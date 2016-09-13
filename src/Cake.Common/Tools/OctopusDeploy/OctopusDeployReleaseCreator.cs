@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
@@ -13,7 +12,7 @@ namespace Cake.Common.Tools.OctopusDeploy
     /// <summary>
     /// The Octopus Deploy release creator runner
     /// </summary>
-    public sealed class OctopusDeployReleaseCreator : Tool<CreateReleaseSettings>
+    public sealed class OctopusDeployReleaseCreator : OctopusDeployTool<CreateReleaseSettings>
     {
         private readonly ICakeEnvironment _environment;
 
@@ -59,24 +58,6 @@ namespace Cake.Common.Tools.OctopusDeploy
 
             var argumentBuilder = new CreateReleaseArgumentBuilder(projectName, settings, _environment);
             Run(settings, argumentBuilder.Get());
-        }
-
-        /// <summary>
-        /// Gets the name of the tool.
-        /// </summary>
-        /// <returns>The name of the tool.</returns>
-        protected override string GetToolName()
-        {
-            return "Octo";
-        }
-
-        /// <summary>
-        /// Gets the possible names of the tool executable.
-        /// </summary>
-        /// <returns>The tool executable name.</returns>
-        protected override IEnumerable<string> GetToolExecutableNames()
-        {
-            return new[] { "Octo.exe" };
         }
     }
 }

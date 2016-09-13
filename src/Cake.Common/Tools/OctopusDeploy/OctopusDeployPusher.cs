@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Cake.Core;
 using Cake.Core.IO;
@@ -14,7 +13,7 @@ namespace Cake.Common.Tools.OctopusDeploy
     /// <summary>
     /// The Octopus Deploy package push runner
     /// </summary>
-    public class OctopusDeployPusher : Tool<OctopusPushSettings>
+    public class OctopusDeployPusher : OctopusDeployTool<OctopusPushSettings>
     {
         private readonly ICakeEnvironment _environment;
 
@@ -33,24 +32,6 @@ namespace Cake.Common.Tools.OctopusDeploy
             : base(fileSystem, environment, processRunner, tools)
         {
             _environment = environment;
-        }
-
-        /// <summary>
-        /// Gets the name of the tool.
-        /// </summary>
-        /// <returns>The name of the tool.</returns>
-        protected override string GetToolName()
-        {
-            return "Octo";
-        }
-
-        /// <summary>
-        /// Gets the possible names of the tool executable.
-        /// </summary>
-        /// <returns>The tool executable name.</returns>
-        protected override IEnumerable<string> GetToolExecutableNames()
-        {
-            return new[] { "Octo.exe" };
         }
 
         /// <summary>

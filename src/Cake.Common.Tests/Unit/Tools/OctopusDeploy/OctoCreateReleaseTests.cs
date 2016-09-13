@@ -4,6 +4,7 @@
 
 using System.Collections.Generic;
 using Cake.Common.Tests.Fixtures.Tools;
+using Cake.Common.Tests.Fixtures.Tools.OctopusDeploy;
 using Cake.Testing;
 using Cake.Testing.Xunit;
 using Xunit;

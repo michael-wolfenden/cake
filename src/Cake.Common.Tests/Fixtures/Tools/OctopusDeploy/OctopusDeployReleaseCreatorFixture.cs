@@ -5,14 +5,13 @@
 using Cake.Common.Tools.OctopusDeploy;
 using Cake.Testing.Fixtures;
 
-namespace Cake.Common.Tests.Fixtures.Tools
+namespace Cake.Common.Tests.Fixtures.Tools.OctopusDeploy
 {
-    internal sealed class OctopusDeployReleaseCreatorFixture : ToolFixture<CreateReleaseSettings>
+    internal sealed class OctopusDeployReleaseCreatorFixture : OctopusDeployFixture<CreateReleaseSettings>
     {
         public string ProjectName { get; set; }
 
         public OctopusDeployReleaseCreatorFixture()
-            : base("Octo.exe")
         {
             ProjectName = "testProject";
 

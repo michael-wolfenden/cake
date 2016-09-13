@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cake.Common.Tools.OctopusDeploy.Pack;
 using Cake.Core;
 using Cake.Core.Annotations;
 using Cake.Core.IO;
@@ -120,6 +121,62 @@ namespace Cake.Common.Tools.OctopusDeploy
 
             var pusher = new OctopusDeployPusher(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
             pusher.PushPackage(server, apiKey, packagePaths.ToArray(), settings);
+        }
+
+        /// <summary>
+        /// Creates a package (.nupkg or .zip) from files on disk, without needing a .nuspec or .csproj
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="id">The ID of the package.</param>
+        /// <param name="format">Package format.</param>
+        /// <example>
+        /// <code>
+        ///     OctoPack("MyCompany.MyApp", Zip);
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Pack")]
+        [CakeNamespaceImport("Cake.Common.Tools.OctopusDeploy.Pack")]
+        public static void OctoPack(this ICakeContext context, string id, OctopusDeployPackFormat format)
+        {
+            context.OctoPack(id, format, null);
+        }
+
+        /// <summary>
+        /// Creates a package (.nupkg or .zip) from files on disk, without needing a .nuspec or .csproj
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="id">The ID of the package.</param>
+        /// <param name="format">Package format.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        ///     var settings = new OctopusDeployPackSetting
+        ///     {
+        ///         Configuration = "Release",
+        ///         OutputDirectory = "./artifacts/"
+        ///     };
+        ///
+        ///     OctoPack("./src/*", settings);
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Pack")]
+        [CakeNamespaceImport("Cake.Common.Tools.OctopusDeploy.Pack")]
+        public static void OctoPack(this ICakeContext context, string id, OctopusDeployPackFormat format, OctopusDeployPackSettings settings)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            if (settings == null)
+            {
+                settings = new OctopusDeployPackSettings();
+            }
+
+            var packer = new OctopusDeployPacker(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
+            packer.Pack(id, format, settings);
         }
     }
 }

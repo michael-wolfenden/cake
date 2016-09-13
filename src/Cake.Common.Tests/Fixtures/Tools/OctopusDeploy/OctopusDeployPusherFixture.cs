@@ -5,11 +5,10 @@
 using System.Collections.Generic;
 using Cake.Common.Tools.OctopusDeploy;
 using Cake.Core.IO;
-using Cake.Testing.Fixtures;
 
-namespace Cake.Common.Tests.Fixtures.Tools
+namespace Cake.Common.Tests.Fixtures.Tools.OctopusDeploy
 {
-    internal sealed class OctopusDeployPusherFixture : ToolFixture<OctopusPushSettings>
+    internal sealed class OctopusDeployPusherFixture : OctopusDeployFixture<OctopusPushSettings>
     {
         internal string Server { get; set; }
 
@@ -18,7 +17,6 @@ namespace Cake.Common.Tests.Fixtures.Tools
         public List<FilePath> Packages { get; set; }
 
         public OctopusDeployPusherFixture()
-            : base("Octo.exe")
         {
             Packages = new List<FilePath>
             {
